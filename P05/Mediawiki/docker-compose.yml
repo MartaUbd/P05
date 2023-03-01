@@ -1,0 +1,31 @@
+version: '3'
+
+services:
+
+  mediawiki:
+    image: mediawiki
+    restart: always
+    ports:
+      - 81:80
+    links:
+      - database
+    volumes:
+      - images:/var/www/html/images
+    depends_on:
+      - database
+   
+  database:
+    container_name: bbddMediawiki
+    image: mariadb
+    restart: always
+    environment:
+      MYSQL_DATABASE: my_wiki
+      MYSQL_USER: wikiMarta
+      MYSQL_PASSWORD: 5555
+      MYSQL_RANDOM_ROOT_PASSWORD: 'yes'
+    volumes:
+      - db:/var/lib/mysql
+
+volumes:
+  images:
+  db:

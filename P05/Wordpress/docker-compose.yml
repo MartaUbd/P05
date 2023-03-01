@@ -1,0 +1,31 @@
+version: '3.1'
+
+services:
+
+  wordpress:
+    image: wordpress
+    restart: always
+    ports:
+      - 84:80
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: martauser
+      WORDPRESS_DB_PASSWORD: 5555
+      WORDPRESS_DB_NAME: martadb
+    volumes:
+      - wordpress:/var/www/html
+
+  db:
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_DATABASE: baseMarta
+      MYSQL_USER: usuarioMarta
+      MYSQL_PASSWORD: 5555
+      MYSQL_RANDOM_ROOT_PASSWORD: '1'
+    volumes:
+      - db:/var/lib/mysql
+
+volumes:
+  wordpress:
+  db:
